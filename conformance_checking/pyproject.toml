@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "conformance-checking"
+version = "0.1.0"
+description = ""
+authors = ["Marijn <m.n.vanhouwelingen@tilburguniveristy.edu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.3"
+ipykernel = "^6.29.5"
+pm4py = "^2.7.11.13"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
