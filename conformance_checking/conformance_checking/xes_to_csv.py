@@ -2,7 +2,7 @@ import pandas as pd
 import pm4py 
 
 
-def troughput_time_to_xes(xes_file_path: str, output_csv_path:str ,output_xes_path : str) -> None:
+def throughput_time_to_xes(xes_file_path: str, output_csv_path:str ,output_xes_path : str) -> None:
     """
     This function converts a xes file to xes and calculates the throughput time for each trace.
 
@@ -54,7 +54,6 @@ def troughput_time_to_xes(xes_file_path: str, output_csv_path:str ,output_xes_pa
     print("Event log has been successfully exported to XES format!")
 
     
-
 if __name__ == "__main__":
-    troughput_time_to_xes("data/BPI2017Denied(3).xes","data/BPI2017Denied(3).csv","data/BPI2017Denied(3)_Throughput.xes")
+    throughput_time_to_xes("data/BPI2017Denied(3).xes","data/BPI2017Denied(3).csv","data/BPI2017Denied(3)_Throughput.xes")
     
