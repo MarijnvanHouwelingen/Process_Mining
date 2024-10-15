@@ -75,10 +75,10 @@ def save_alignments(alignments: List, file_path: str):
     """
     Save the given alignments to a file using pickle.
 
-    Parameters:
+    Parameters
     ----------
-    - alignments: The alignments to be saved.
-    - file_path: The path where the alignments will be saved.
+    - alignments (List): The alignments to be saved.
+    - file_path (str): The path where the alignments will be saved.
     
     Returns
     ----------
@@ -93,9 +93,9 @@ def load_alignments(file_path: str):
     """
     Load alignments from a file using pickle.
 
-    Parameters:
+    Parameters
     ----------
-    - file_path: The path of the file to load the alignments from. 
+    - file_path (str): The path of the file to load the alignments from. 
     
     Returns
     ----------
@@ -112,14 +112,13 @@ def generate_trace_encoding(alignments: List):
     """
     Load alignments from a file using pickle.
 
-    Parameters:
+    Parameters
     ----------
-    - alignments: A list of alignment results where each trace containts the alignment of activities between the log and PetriNet
+    - alignments (List): A list of alignment results where each trace containts the alignment of activities between the log and PetriNet
     
     Returns
     ----------
-    List[Dict[str, Dict[str, int]]]: A list where each element corresponds to a trace. 
-    Each trace is represented by a dictionary where the keys are the activity names and the values are dictionaries with the counts of 'log_moves' and 'model_moves'
+    List[Dict[str, Dict[str, int]]]: A list where each element corresponds to a trace. Each trace is represented by a dictionary where the keys are the activity names and the values are dictionaries with the counts of 'log_moves' and 'model_moves'
     """
     # Initialize a list to store the move counts for each trace
     move_count_per_trace = []
@@ -150,9 +149,10 @@ def make_alignments_table(alignments: List):
     """
     Displays the alignments between log and model for each trace in a tabular format. 
 
-    Parameters:
+    Parameters
     ----------
-    - alignments: A list of alignment results where each trace containts the alignment of activities between the log and PetriNet.
+    - alignments (List): A list of alignment results where each trace containts the alignment of activities between the log and PetriNet.
+    
     Returns
     ----------
     None
@@ -188,6 +188,51 @@ def make_alignments_table(alignments: List):
             model_value = str(row['Model'])
             print(f"{log_value:<50} {model_value:<50}")
             print('-' * 100)
+            
+def make_dataframe_for_decision_tree(xes_file_path: str, move_count_per_trace: List):
+    """
+    This function merges throughput time with trace moves (log and model) into a DataFrame, preparing it for decision tree analysis.
+
+    Parameters
+    ----------
+    - xes_file_path (str): The filepath of the xes file (event log file).
+    - move_count_per_trace (List): A list where each element corresponds to a trace. Each trace is represented by a dictionary where the keys are the activity names and the values are dictionaries with the counts of 'log_moves' and 'model_moves'.
+    
+    Returns
+    ----------
+    None
+    """
+    # Load the XES file
+    log_df = pm4py.read_xes(xes_file_path)
+    
+    # Calculate throughput time for each trace, grouped by '@@case_index'
+    throughput_time_df = log_df.groupby('@@case_index')['case:throughput_time'].first().reset_index()
+
+    # Flatten the trace data and convert it to a DataFrame
+    flattened_traces = []
+    for trace_number, trace in enumerate(move_count_per_trace, start=0):
+        # Add trace number to each flattened trace
+        flat_trace = {'trace_number': trace_number} 
+        for activity, moves in trace.items():
+            # Replace spaces with underscores for activity names, they are not None
+            if activity is not None: 
+                activity = activity.replace(' ', '_')  
+            # Add the model moves and log moves for each activity to the trace dictionary.
+            flat_trace[f'{activity}_log_moves'] = moves['log_moves']
+            flat_trace[f'{activity}_model_moves'] = moves['model_moves']
+        flattened_traces.append(flat_trace)
+
+    # Create a DataFrame for the flattened trace data
+    df_flattend = pd.DataFrame(flattened_traces)
+    
+    # Combine the flattened trace data with the throughput time based on the trace number
+    df = pd.merge(df_flattend, throughput_time_df, left_on= 'trace_number', right_on= '@@case_index')
+    
+    # Drop the '@@case_index' column, as it is no longer needed
+    df = df.drop('@@case_index', axis=1)
+    
+    # Write it to csv
+    df.to_csv('data/df_for_decision_tree.csv', index=False)
 
 if __name__ == "__main__":
     # PetriNet, iMarking, fMarking = load_pnml("data/BPI2017Denied_petriNet.pnml")
@@ -196,8 +241,9 @@ if __name__ == "__main__":
     
     alignments = load_alignments('data/alignments.pkl')
     move_count_per_trace = generate_trace_encoding(alignments)
-    print(f"Move counts for the first trace (log and model): {move_count_per_trace[0]}")
+    # print(f"Move counts for the first trace (log and model): {move_count_per_trace[0:5]}")
+    make_dataframe_for_decision_tree("data/BPI2017Denied(3)_Throughput.xes", move_count_per_trace)
     
     # view_event_log_petrinet("data/BPI2017Denied(3)_Throughput.xes")
-    make_alignments_table([alignments[0]])
+    # make_alignments_table([alignments[0]])
 
