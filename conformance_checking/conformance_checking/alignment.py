@@ -108,6 +108,31 @@ def load_alignments(file_path: str):
     
     return alignments
 
+def clean_alignments(alignments: List):
+    """
+    Cleans the alignment data by replacing None values with the tau symbol (τ).
+
+    Parameters
+    ----------
+    - alignments (List): A list of alignment results where each trace containts the alignment of activities between the log and PetriNet
+    
+    Returns
+    ----------
+    :List[Dict[str,List[Tuple[Optional[str],Optional[str]]]]]: The alignments that was loaded from the file.
+    """
+    # Initialize tau symbol 
+    tau_symbol = '\u03c4'
+    
+    for trace in alignments:
+        for i, (log_activity, model_activity) in enumerate(trace['alignment']):
+            # Check if an activity is None and replace it with the tau symbol
+            if log_activity is None:
+                trace['alignment'][i] = (tau_symbol, model_activity)
+            elif model_activity is None:
+                trace['alignment'][i] = (log_activity, tau_symbol)
+    
+    return alignments
+
 def generate_trace_encoding(alignments: List):
     """
     Load alignments from a file using pickle.
@@ -189,7 +214,7 @@ def make_alignments_table(alignments: List):
             print(f"{log_value:<50} {model_value:<50}")
             print('-' * 100)
             
-def make_dataframe_for_decision_tree(xes_file_path: str, move_count_per_trace: List):
+def make_dataframe_for_decision_tree(xes_file_path: str, move_count_per_trace: List, save_path: str):
     """
     This function merges throughput time with trace moves (log and model) into a DataFrame, preparing it for decision tree analysis.
 
@@ -197,6 +222,7 @@ def make_dataframe_for_decision_tree(xes_file_path: str, move_count_per_trace: L
     ----------
     - xes_file_path (str): The filepath of the xes file (event log file).
     - move_count_per_trace (List): A list where each element corresponds to a trace. Each trace is represented by a dictionary where the keys are the activity names and the values are dictionaries with the counts of 'log_moves' and 'model_moves'.
+    - save_path (str): The path where the resulting DataFrame will be saved as a CSV file. 
     
     Returns
     ----------
@@ -232,7 +258,7 @@ def make_dataframe_for_decision_tree(xes_file_path: str, move_count_per_trace: L
     df = df.drop('@@case_index', axis=1)
     
     # Write it to csv
-    df.to_csv('data/df_for_decision_tree.csv', index=False)
+    df.to_csv(save_path, index=False)
 
 if __name__ == "__main__":
     # PetriNet, iMarking, fMarking = load_pnml("data/BPI2017Denied_petriNet.pnml")
@@ -240,10 +266,11 @@ if __name__ == "__main__":
     # save_alignments(alignments, 'data/alignments.pkl')
     
     alignments = load_alignments('data/alignments.pkl')
-    move_count_per_trace = generate_trace_encoding(alignments)
+    clean_alignments = clean_alignments(alignments)
+    # move_count_per_trace = generate_trace_encoding(clean_alignments)
     # print(f"Move counts for the first trace (log and model): {move_count_per_trace[0:5]}")
-    make_dataframe_for_decision_tree("data/BPI2017Denied(3)_Throughput.xes", move_count_per_trace)
+    # make_dataframe_for_decision_tree("data/BPI2017Denied(3)_Throughput.xes", move_count_per_trace, 'data/df_with_tau_for_decision_tree.csv')
     
     # view_event_log_petrinet("data/BPI2017Denied(3)_Throughput.xes")
-    # make_alignments_table([alignments[0]])
+    make_alignments_table([clean_alignments[0]])
 
