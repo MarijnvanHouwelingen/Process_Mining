@@ -54,6 +54,6 @@ def throughput_time_to_xes(xes_file_path: str, output_csv_path:str ,output_xes_p
     print("Event log has been successfully exported to XES format!")
 
     
-if __name__ == "__main__":
+if __name__ == "__main__": #### Dit gaat weg MORGEN ####
     throughput_time_to_xes("data/BPI2017Denied(3).xes","data/BPI2017Denied(3).csv","data/BPI2017Denied(3)_Throughput.xes")
     

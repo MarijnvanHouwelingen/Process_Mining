@@ -260,7 +260,7 @@ def make_dataframe_for_decision_tree(xes_file_path: str, move_count_per_trace: L
     # Write it to csv
     df.to_csv(save_path, index=False)
 
-if __name__ == "__main__":
+if __name__ == "__main__": #### Dit gaat nog weg MORGEN ####
     # PetriNet, iMarking, fMarking = load_pnml("data/BPI2017Denied_petriNet.pnml")
     # alignments = create_alignment("data/BPI2017Denied(3)_Throughput.xes", PetriNet, iMarking, fMarking)
     # save_alignments(alignments, 'data/alignments.pkl')
