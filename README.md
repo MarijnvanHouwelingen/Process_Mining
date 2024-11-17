@@ -45,10 +45,10 @@ pm4py = "^2.7.11.13"
 
 This section of the README file focusses on the utilization of Poetry in for new users:
 **Step 1: Install poetry**: 
-Install poetry using the pip command: ```python pip install poetry```. Install it on a virtual environment if you want poetry to be isolated from the main python environment.
+Install poetry using the pip command: ```pip install poetry```. Install it on a virtual environment if you want poetry to be isolated from the main python environment.
 
 **Step 2: Install dependencies**:
-When poetry is installed, go to the root folder (where the toml file is located). Then install the dependencies and create a virtual environment (.venv) with the command ```bash poetry install``` 
+When poetry is installed, go to the root folder (where the toml file is located). Then install the dependencies and create a virtual environment (.venv) with the command ```poetry install``` 
 
 **Step 3: Choose kernel in notebook**:
 When the new virtual environment is created in the .venv folder, you can select the new environment with the option *select kernel*. 
