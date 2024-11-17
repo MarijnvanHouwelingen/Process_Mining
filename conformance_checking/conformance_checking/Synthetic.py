@@ -5,6 +5,99 @@ from datetime import timedelta
 from pm4py.objects.petri_net.importer import importer as pnml_importer
 import pm4py
 import numpy as np
+import json
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.tree import DecisionTreeRegressor
+
+
+class DecisionTreeModelSynthetic:
+    """
+    A class used to represent a Decision Tree Model for predicting case throughput time.
+
+    Attributes
+    ----------
+    json_file_path : str
+        The path to the JSON file containing the parameter grid for GridSearchCV.
+    random_state : int
+        The seed used by the random number generator.
+    test_size : float
+        The proportion of the dataset to include in the test split.
+    grid_search : GridSearchCV, optional
+        The GridSearchCV object after fitting the model.
+
+    Methods
+    -------
+    load_param_grid():
+        Loads the parameter grid from a JSON file.
+    
+    preprocess_data(df):
+        Preprocesses the input DataFrame by filling missing values, excluding certain columns, and converting the target variable to hours.
+    
+    train_model(df):
+        Trains the Decision Tree model using GridSearchCV to find the best parameters.
+    
+    Returns
+    -------
+    dict
+        The parameter grid dictionary.
+    """
+    def __init__(self, json_file_path='param_grid.json', random_state=42, test_size=0.2):
+        self.json_file_path = json_file_path
+        self.random_state = random_state
+        self.test_size = test_size
+        self.grid_search = None
+
+    def load_param_grid(self):
+        with open(self.json_file_path, 'r') as file:
+            return json.load(file)
+
+    def preprocess_data(self, df):
+        """
+        Preprocesses the input DataFrame:
+        - Replaces NaN (missing activities) with a very small positive value.
+        - Distinguishes between missing activities and synchronous moves.
+        """
+        # Fill NaN with a very small positive value to indicate missing activities
+        df_filled = df.fillna(0.00001)
+
+        # Separate features (X) and target (y)
+        columns_to_exclude = ["trace_id", "None_log_moves", "None_model_moves"]
+        X = df_filled.drop(columns=columns_to_exclude + ["case:throughput_time"])
+        y = pd.to_timedelta(df_filled["case:throughput_time"]).apply(lambda x: x.total_seconds() / 3600)
+
+        return X, y
+
+    def train_model(self, df):
+        """
+        Trains the decision tree while respecting the distinction between synchronous moves,
+        deviations, and missing activities.
+        """
+        X, y = self.preprocess_data(df)
+
+        # Split data into training and testing sets
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=self.test_size, random_state=self.random_state
+        )
+
+        # Load parameter grid and initialize decision tree
+        param_grid = self.load_param_grid()
+        tree_regressor = DecisionTreeRegressor(random_state=self.random_state)
+
+        # Perform Grid Search with Cross-Validation
+        self.grid_search = GridSearchCV(
+            estimator=tree_regressor,
+            param_grid=param_grid,
+            cv=5,
+            scoring='neg_mean_absolute_error',
+            n_jobs=-1,
+            verbose=2
+        )
+        self.grid_search.fit(X_train, y_train)
+
+        # Output best parameters
+        print("Best Parameters found in Grid Search:", self.grid_search.best_params_)
+
+
 
 
 def generate_synthetic_log(petri_net, initial_marking, final_marking):
