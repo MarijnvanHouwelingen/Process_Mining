@@ -3,6 +3,7 @@ This is the repository for the Process mining group 7 for the subject Process Mi
 
 ## Contributors
 The contributors of this project with the corresponding student numbers (Tilburg University):
+
 Marijn van Houwelingen | 2056332
 
 Kyra Jongman | 2109263
