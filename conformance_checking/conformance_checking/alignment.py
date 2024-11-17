@@ -1,7 +1,7 @@
 import pm4py
 from pm4py.objects.petri_net.importer import importer as pnml_importer
 from pm4py.visualization.petri_net import visualizer as petri_visualizer
-from typing import Tuple, List, Dict, Optional
+from typing import Tuple, List
 import pickle
 import pandas as pd
 
@@ -104,7 +104,7 @@ def load_alignments(file_path: str):
     # Load alignments from pickle file
     with open(file_path, 'rb') as f:
         alignments = pickle.load(f)
-    print(f"Alignments successfully opened")
+    print("Alignments successfully opened")
     
     return alignments
 

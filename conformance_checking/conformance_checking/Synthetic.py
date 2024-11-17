@@ -2,7 +2,6 @@
 import pandas as pd
 import random
 from datetime import timedelta
-from pm4py.objects.petri_net.importer import importer as pnml_importer
 import pm4py
 import numpy as np
 import json
