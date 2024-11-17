@@ -51,29 +51,41 @@ class DecisionTreeModel:
 
     def load_param_grid(self):
         with open(self.json_file_path, 'r') as file:
-            param_grid = json.load(file)
-        return param_grid
+            return json.load(file)
 
     def preprocess_data(self, df):
-        df_filled = df.fillna(-1)
+        """
+        Preprocesses the input DataFrame:
+        - Replaces NaN (missing activities) with a very small positive value.
+        - Distinguishes between missing activities and synchronous moves.
+        """
+        # Fill NaN with a very small positive value to indicate missing activities
+        df_filled = df.fillna(0.00001)
+
+        # Separate features (X) and target (y)
         columns_to_exclude = ["trace_number", "None_log_moves", "None_model_moves"]
         X = df_filled.drop(columns=columns_to_exclude + ["case:throughput_time"])
-        y = df_filled["case:throughput_time"]
-        y_timedelta = pd.to_timedelta(y)
-        y_hours = y_timedelta.apply(lambda x: x.total_seconds() / 3600)
-        return X, y_hours
+        y = pd.to_timedelta(df_filled["case:throughput_time"]).apply(lambda x: x.total_seconds() / 3600)
+
+        return X, y
 
     def train_model(self, df):
-        X, y_hours = self.preprocess_data(df)
-        # Identify columns with -1 and transform
-        columns_with_negative = (X == -1).any(axis=0)
-        if columns_with_negative.any():
-            for col in X.columns[columns_with_negative]:
-                # Replace -1 with a custom flag or leave as is if logical
-                X[col] = X[col].apply(lambda x: 0 if x == -1 else x)  # Custom replacement logic
-        X_train, X_test, y_train, y_test = train_test_split(X, y_hours, test_size=self.test_size, random_state=self.random_state)
+        """
+        Trains the decision tree while respecting the distinction between synchronous moves,
+        deviations, and missing activities.
+        """
+        X, y = self.preprocess_data(df)
+
+        # Split data into training and testing sets
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=self.test_size, random_state=self.random_state
+        )
+
+        # Load parameter grid and initialize decision tree
         param_grid = self.load_param_grid()
         tree_regressor = DecisionTreeRegressor(random_state=self.random_state)
+
+        # Perform Grid Search with Cross-Validation
         self.grid_search = GridSearchCV(
             estimator=tree_regressor,
             param_grid=param_grid,
@@ -83,6 +95,8 @@ class DecisionTreeModel:
             verbose=2
         )
         self.grid_search.fit(X_train, y_train)
+
+        # Output best parameters
         print("Best Parameters found in Grid Search:", self.grid_search.best_params_)
 
 
