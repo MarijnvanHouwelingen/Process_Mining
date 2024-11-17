@@ -285,7 +285,7 @@ def map_alignments_with_trace_ids(log_df, alignments):
 
     return alignments_with_trace_ids
 
-def generate_trace_encoding(alignments_with_trace_ids):
+def generate_trace_encoding_synthetic(alignments_with_trace_ids):
     """
     Generate trace encodings and associate them with trace IDs.
 

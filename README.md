@@ -31,7 +31,56 @@ A synthetic event log was created based on the normative process model *BPI2017D
 Lastly, the Gold Standard, a manner to assess the quality the findings, was elaboratly discussed.
 
 ## Repository overview
-tree command in terminal aan het einde van het project (Morgen). Ook nog even alles 1 keer test draaien morgen. 
+```bash
+C:.
+│   .gitignore
+│   assignment_conformance_checking_group7.pdf
+│   output.txt
+│   README.md
+│   
+└───conformance_checking
+    │   .DS_Store
+    │   main.ipynb
+    │   param_grid.json
+    │   poetry.lock
+    │   pyproject.toml
+    │   requirements.txt
+    │          
+    ├───conformance_checking
+    │   │   alignment.py
+    │   │   Ranking.py
+    │   │   Synthetic.py
+    │   │   xes_to_csv.py
+    │   │   __init__.py
+    │   
+    │           
+    ├───data
+    │       alignments.pkl
+    │       BPI2017Denied(3).csv
+    │       BPI2017Denied(3).xes
+    │       BPI2017Denied_petriNet.pnml
+    │       df_for_decision_tree.csv
+    │       df_with_tau_for_decision_tree.csv
+    │       Log Description.pdf
+    │       M_dL_M@COOPIS17.pdf
+    │       
+    ├───decision_tree_figures
+    │       decision_tree.png
+    │       
+    ├───petrinet_graphs
+    │       given_petrinet.png
+    │       mined_petrinet.png
+    │       
+    ├───ranked_rules
+    │       ranked_rules_gini.txt
+    │       ranked_rules_gini_rules_synthetic.txt
+    │       ranked_rules_synthetic.txt
+    │       ranked_rules_tt.txt
+    │       
+    └───tests
+            decision_tree_data.csv
+            __init__.py
+```            
 
 ## Instructions
 The file **main.ipynb** contains all steps in order as described in the method section. Running all functions from top to bottom should ultimately generate classification rules with the amount of traces that apply for each classification rule. There are additional chunks that show the alignment table and visualize both the normative process model (PetriNet) and a PetriNet model mined from the event log. These code chunks will be marked with **Additional** above the code chunk.

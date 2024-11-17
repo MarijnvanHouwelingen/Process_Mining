@@ -11,7 +11,7 @@ from .alignment import (
     make_alignments_table
 )
 from .Ranking import (DecisionTreeModel, DecisionTreeEvaluator, RuleRanker, extract_rules_from_tree, split_log_by_rules_with_labels, extract_and_print_rules)
-from .Synthetic import (generate_synthetic_log, adjust_timestamps, introduce_synthetic_deviations_W, map_alignments_with_trace_ids, generate_trace_encoding, make_dataframe_for_decision_tree_with_throughput, DecisionTreeModelSynthetic)
+from .Synthetic import (generate_synthetic_log, adjust_timestamps, introduce_synthetic_deviations_W, map_alignments_with_trace_ids, generate_trace_encoding_synthetic, make_dataframe_for_decision_tree_with_throughput, DecisionTreeModelSynthetic)
 
 
 __all__ = [
@@ -23,7 +23,6 @@ __all__ = [
     'save_alignments',
     'load_alignments',
     'clean_alignments',
-    'generate_trace_encoding',
     'make_alignments_table',
     'DecisionTreeModel',
     'DecisionTreeEvaluator',
@@ -35,6 +34,7 @@ __all__ = [
     'adjust_timestamps',
     'introduce_synthetic_deviations_W',
     'map_alignments_with_trace_ids',
+    'generate_trace_encoding_synthetic',
     'generate_trace_encoding',
     'make_dataframe_for_decision_tree_with_throughput',
     'DecisionTreeModelSynthetic'
