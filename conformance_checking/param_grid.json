@@ -1,0 +1,24 @@
+{
+    "max_depth": [
+        3,
+        5
+    
+
+    ],
+    "min_samples_split": [
+        
+        50,
+        70,
+        90
+    ],
+    "min_samples_leaf": [
+        30,
+        60,
+        90,
+        120
+    ],
+    "max_features": [
+        5,
+        8
+    ]
+}

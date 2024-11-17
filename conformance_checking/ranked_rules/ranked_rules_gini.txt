@@ -1,0 +1,131 @@
+Rule 1:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves > 4.999999873689376e-06
+  - W-Call-after-offers-ate-abort_model_moves <= 4.999999873689376e-06
+  - W-Assess-potential-fraud-schedule_model_moves > 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 1.5
+  - W-Complete-application-suspend_model_moves > 0.5
+  Average Gini Impurity Along Path: 52768.7571
+  Final Gini Impurity at Leaf: 20895.9450
+  Average Throughput Time (Hours): 318.04
+
+Rule 2:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves > 4.999999873689376e-06
+  - W-Call-after-offers-ate-abort_model_moves > 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 0.5
+  Average Gini Impurity Along Path: 56971.7073
+  Final Gini Impurity at Leaf: 23696.8866
+  Average Throughput Time (Hours): 118.82
+
+Rule 3:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves > 4.999999873689376e-06
+  - W-Call-after-offers-ate-abort_model_moves <= 4.999999873689376e-06
+  - W-Assess-potential-fraud-schedule_model_moves > 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 1.5
+  - W-Complete-application-suspend_model_moves <= 0.5
+  Average Gini Impurity Along Path: 52768.7571
+  Final Gini Impurity at Leaf: 33212.8054
+  Average Throughput Time (Hours): 383.55
+
+Rule 4:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves <= 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 1.5
+  - O-Sent-mail-and-online_log_moves <= 0.5
+  - W-Validate-application-ate-abort_log_moves > 4.999999873689376e-06
+  - W-Complete-application-ate-abort_log_moves <= 4.999999873689376e-06
+  Average Gini Impurity Along Path: 62246.0548
+  Final Gini Impurity at Leaf: 44532.1409
+  Average Throughput Time (Hours): 483.79
+
+Rule 5:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves <= 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 1.5
+  - O-Sent-mail-and-online_log_moves <= 0.5
+  - W-Validate-application-ate-abort_log_moves <= 4.999999873689376e-06
+  - W-Validate-application-complete_log_moves > 4.999999873689376e-06
+  Average Gini Impurity Along Path: 65978.9939
+  Final Gini Impurity at Leaf: 45087.6391
+  Average Throughput Time (Hours): 427.54
+
+Rule 6:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves <= 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 1.5
+  - O-Sent-mail-and-online_log_moves <= 0.5
+  - W-Validate-application-ate-abort_log_moves > 4.999999873689376e-06
+  - W-Complete-application-ate-abort_log_moves > 4.999999873689376e-06
+  Average Gini Impurity Along Path: 62246.0548
+  Final Gini Impurity at Leaf: 45465.6886
+  Average Throughput Time (Hours): 400.59
+
+Rule 7:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves > 4.999999873689376e-06
+  - W-Call-after-offers-ate-abort_model_moves > 4.999999873689376e-06
+  - O-Create-Offer_log_moves > 0.5
+  Average Gini Impurity Along Path: 56971.7073
+  Final Gini Impurity at Leaf: 51791.9072
+  Average Throughput Time (Hours): 236.72
+
+Rule 8:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves <= 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 1.5
+  - O-Sent-mail-and-online_log_moves <= 0.5
+  - W-Validate-application-ate-abort_log_moves <= 4.999999873689376e-06
+  - W-Validate-application-complete_log_moves <= 4.999999873689376e-06
+  Average Gini Impurity Along Path: 65978.9939
+  Final Gini Impurity at Leaf: 73452.5942
+  Average Throughput Time (Hours): 505.42
+
+Rule 9:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves <= 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 1.5
+  - O-Sent-mail-and-online_log_moves > 0.5
+  - W-Validate-application-suspend_log_moves <= 1.5
+  Average Gini Impurity Along Path: 73111.1536
+  Final Gini Impurity at Leaf: 83560.0358
+  Average Throughput Time (Hours): 515.21
+
+Rule 10:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves <= 4.999999873689376e-06
+  - O-Create-Offer_log_moves <= 1.5
+  - O-Sent-mail-and-online_log_moves > 0.5
+  - W-Validate-application-suspend_log_moves > 1.5
+  Average Gini Impurity Along Path: 73111.1536
+  Final Gini Impurity at Leaf: 92258.8274
+  Average Throughput Time (Hours): 581.13
+
+Rule 11:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves <= 4.999999873689376e-06
+  - O-Create-Offer_log_moves > 1.5
+  Average Gini Impurity Along Path: 69972.1917
+  Final Gini Impurity at Leaf: 116775.5960
+  Average Throughput Time (Hours): 704.72
+
+Rule 12:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves > 4.999999873689376e-06
+  - W-Call-after-offers-ate-abort_model_moves <= 4.999999873689376e-06
+  - W-Assess-potential-fraud-schedule_model_moves > 4.999999873689376e-06
+  - O-Create-Offer_log_moves > 1.5
+  Average Gini Impurity Along Path: 58645.0346
+  Final Gini Impurity at Leaf: 134780.0434
+  Average Throughput Time (Hours): 579.32
+
+Rule 13:
+Conditions:
+  - W-Call-incomplete-files-start_model_moves > 4.999999873689376e-06
+  - W-Call-after-offers-ate-abort_model_moves <= 4.999999873689376e-06
+  - W-Assess-potential-fraud-schedule_model_moves <= 4.999999873689376e-06
+  Average Gini Impurity Along Path: 65953.8433
+  Final Gini Impurity at Leaf: 554886.9271
+  Average Throughput Time (Hours): 607.01
+
