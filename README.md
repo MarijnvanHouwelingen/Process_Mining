@@ -35,7 +35,6 @@ Lastly, the Gold Standard, a manner to assess the quality the findings, was elab
 C:.
 │   .gitignore
 │   assignment_conformance_checking_group7.pdf
-│   output.txt
 │   README.md
 │   
 └───conformance_checking
