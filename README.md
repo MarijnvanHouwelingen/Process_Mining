@@ -1,6 +1,13 @@
 # Conformance Checking | Process Mining | Group 7
 This is the repository for the Process mining group 7 for the subject Process Mining (JM0211-M-6). This project focusses on the reproducion of the 'Deviation analysis' step in the methodology of Dees et al. (2017).  
 
+## Contributors
+The contributors of this project with the corresponding student numbers (Tilburg University):
+Marijn van Houwelingen | 2056332
+Kyra Jongman | 2109263
+Nufail Billar | 2114516
+Bonrná Djavdan | 2007904
+
 ## Motivation
 Conformance checking techniques compare a normative process with behaviors logged in an event log during the actual process execution. Such techniques try to pinpoint the discrepancies. Deviations from the normative process model can highlight a structural violation of possible measures or guards. For example in a loan application process, when the total family income is under €10000, then disapprove all loans above €50000.
 
