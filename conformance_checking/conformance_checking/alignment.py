@@ -170,7 +170,7 @@ def generate_trace_encoding(alignments: List):
         
     return move_count_per_trace
 
-def make_alignments_table(alignments: List):
+def make_alignments_table(alignments: List) -> None:
     """
     Displays the alignments between log and model for each trace in a tabular format. 
 

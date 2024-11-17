@@ -18,23 +18,37 @@ The second step is loading the normative process model (PetriNet). The PetriNet 
 
 The third step undertaken was the generation of the alignments for each trace in the event log. After the eventlog and the normative process model are loaded the function *create_alignment.py* will create the optimal alignments with the event log and PetriNet as parameters. The alignments can also be saved as a .pkl file with the function *save_alignment* in the *alignment.py* python file. 
 
-Before applying a decision tree can be applied on the alignments, they have to be cleaned and encoded. The function clean_alignment in the python file *create_alignment.py* replaces the silent activity model move and log move *((none, >>) and (>>,none))* with a τ for additional readability and interpretability in the decision tree regressor model.
+Before applying a decision tree on the alignments, they have to be cleaned and encoded. The function clean_alignment in the python file *create_alignment.py* replaces the silent activity model move and log move *((none, >>) and (>>,none))* with a τ for additional readability and interpretability in the decision tree regressor model.
 
 The encoding step is undertaken with the functions *generate_trace_encoding* and *make_dataframe_for_decision_tree* both in the *create_alignment.py* python file. The *generate_trace_encoding* counts and aggregates all alignments on a trace level with one-hot encoding. *make_dataframe_for_decision_tree* adds the troughput time per trace and converts the object into a csv file for the decision tree. 
 
-The fourth step is the application of the set of encoded traces on a decision tree algorithm. The decision tree regressor algorithm can be found in **NAME.ipynb**. Hyperparameter optimalization trough gridsearch cross validation is being utilized to enhance the overall performance of the decision tree regressor algorithm. The final hyperparameters can be found in a configuration file named: **config.json**. 
+The fourth step is the application of the set of encoded traces on a decision tree algorithm. The decision tree regressor algorithm can be found in **main.ipynb**. Hyperparameter optimalization trough gridsearch cross validation is being utilized to enhance the overall performance of the decision tree regressor algorithm. The final hyperparameters can be found in a configuration file named: **config.json**. 
 
-Finally, the classification rules derived from the decision tree are produced with the function **NAME** in python file **NAME.py**. This function traverses through the derived decision tree and returns the classification rules and the amount of traces that apply for each classification rule in a csv. **geen Idee of dit handig is, kan ook printen volgens mij**
-
-
-First, introduce and motivate your chosen method, and explain how it contributes to solving the research question/business problem.
-
-Second, summarize your results concisely. Make use of subheaders where appropriate.
-
+Finally, the classification rules derived from the decision tree are produced with the function **NAME** in python file **NAME.py**. This function traverses through the derived decision tree and returns the classification rules and the amount of traces that apply for each classification rule in a csv. 
 
 ## Repository overview
 tree command in terminal aan het einde van het project (Morgen). Ook nog even alles 1 keer test draaien morgen. 
 
 ## Instructions
-The file **NAME.ipynb** contains all steps in order as described in the method section. Running all functions from top to bottom should ultimately generate classification rules with the amount of traces that apply for each classification rule. There are additional chunks that show the alignment table and visualize both the normative process model (PetriNet) and a PetriNet model mined from the event log. These code chunks will be marked with **Additional** above the code chunk.
+The file **main.ipynb** contains all steps in order as described in the method section. Running all functions from top to bottom should ultimately generate classification rules with the amount of traces that apply for each classification rule. There are additional chunks that show the alignment table and visualize both the normative process model (PetriNet) and a PetriNet model mined from the event log. These code chunks will be marked with **Additional** above the code chunk.
 
+## Poetry install instructions:
+This project utilizes poetry as a version control system for python instead of pip. Poetry additionally resolves dependencies not seen in regular version control systems (such as pip). The pyproject.toml file is a direct replacement for a requirements.txt file. The python version utilized is: *python = "^3.11"*. With the main dependencies for this project being:
+
+```toml
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.3"
+ipykernel = "^6.29.5"
+pm4py = "^2.7.11.13"
+```
+
+This section of the README file focusses on the utilization of Poetry in for new users:
+**Step 1: Install poetry**: 
+Install poetry using the pip command: ```python pip install poetry```. Install it on a virtual environment if you want poetry to be isolated from the main python environment.
+
+**Step 2: Install dependencies**:
+When poetry is installed, go to the root folder (where the toml file is located). Then install the dependencies and create a virtual environment (.venv) with the command ```bash poetry install``` 
+
+**Step 3: Choose kernel in notebook**:
+When the new virtual environment is created in the .venv folder, you can select the new environment with the option *select kernel*. 
