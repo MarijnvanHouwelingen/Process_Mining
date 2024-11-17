@@ -22,9 +22,13 @@ Before applying a decision tree on the alignments, they have to be cleaned and e
 
 The encoding step is undertaken with the functions *generate_trace_encoding* and *make_dataframe_for_decision_tree* both in the *create_alignment.py* python file. The *generate_trace_encoding* counts and aggregates all alignments on a trace level with one-hot encoding. *make_dataframe_for_decision_tree* adds the troughput time per trace and converts the object into a csv file for the decision tree. 
 
-The fourth step is the application of the set of encoded traces on a decision tree algorithm. The decision tree regressor algorithm can be found in *Ranking.py*. Hyperparameter optimalization trough gridsearch cross validation in *ranking.py* is being utilized to enhance the overall performance of the decision tree regressor algorithm. The final hyperparameters can be found in a configuration file named: **param_grid.json**. 
+The fourth step is the application of the set of encoded traces on a decision tree algorithm. The decision tree regressor algorithm can be found in *Ranking.py*. Hyperparameter optimalization through gridsearch cross validation in *ranking.py* is being utilized to enhance the overall performance of the decision tree regressor algorithm. The final hyperparameters can be found in a configuration file named: **param_grid.json**. 
 
 Finally, the classification rules derived and ranked based on the gini coeficient and throughput time from the decision tree are produced with the function **extract_and_print_rules** in python file **Ranking.py**. This function traverses through the derived decision tree and returns the classification rules and the amount of traces that apply for each classification rule in a txt file. 
+
+A synthetic event log was created based on the normative process model *BPI2017Denied_PetriNet.pnml*. Using the functions in *Synthetic.py*, deviations such as skipped activities and timestamp adjustments were introduced to simulate real-world anomalies. After training the decision tree model, the rules were ranked in similar fashion using the functions of the **Ranking.py** python file.
+
+Lastly, the Gold Standard, a manner to assess the quality the findings, was elaboratly discussed.
 
 ## Repository overview
 tree command in terminal aan het einde van het project (Morgen). Ook nog even alles 1 keer test draaien morgen. 
