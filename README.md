@@ -22,9 +22,9 @@ Before applying a decision tree on the alignments, they have to be cleaned and e
 
 The encoding step is undertaken with the functions *generate_trace_encoding* and *make_dataframe_for_decision_tree* both in the *create_alignment.py* python file. The *generate_trace_encoding* counts and aggregates all alignments on a trace level with one-hot encoding. *make_dataframe_for_decision_tree* adds the troughput time per trace and converts the object into a csv file for the decision tree. 
 
-The fourth step is the application of the set of encoded traces on a decision tree algorithm. The decision tree regressor algorithm can be found in **main.ipynb**. Hyperparameter optimalization trough gridsearch cross validation is being utilized to enhance the overall performance of the decision tree regressor algorithm. The final hyperparameters can be found in a configuration file named: **config.json**. 
+The fourth step is the application of the set of encoded traces on a decision tree algorithm. The decision tree regressor algorithm can be found in *Ranking.py*. Hyperparameter optimalization trough gridsearch cross validation in *ranking.py* is being utilized to enhance the overall performance of the decision tree regressor algorithm. The final hyperparameters can be found in a configuration file named: **param_grid.json**. 
 
-Finally, the classification rules derived from the decision tree are produced with the function **NAME** in python file **NAME.py**. This function traverses through the derived decision tree and returns the classification rules and the amount of traces that apply for each classification rule in a csv. 
+Finally, the classification rules derived and ranked based on the gini coeficient and throughput time from the decision tree are produced with the function **extract_and_print_rules** in python file **Ranking.py**. This function traverses through the derived decision tree and returns the classification rules and the amount of traces that apply for each classification rule in a txt file. 
 
 ## Repository overview
 tree command in terminal aan het einde van het project (Morgen). Ook nog even alles 1 keer test draaien morgen. 
@@ -33,14 +33,16 @@ tree command in terminal aan het einde van het project (Morgen). Ook nog even al
 The file **main.ipynb** contains all steps in order as described in the method section. Running all functions from top to bottom should ultimately generate classification rules with the amount of traces that apply for each classification rule. There are additional chunks that show the alignment table and visualize both the normative process model (PetriNet) and a PetriNet model mined from the event log. These code chunks will be marked with **Additional** above the code chunk.
 
 ## Poetry install instructions:
-This project utilizes poetry as a version control system for python instead of pip. Poetry additionally resolves dependencies not seen in regular version control systems (such as pip). The pyproject.toml file is a direct replacement for a requirements.txt file. The python version utilized is: *python = "^3.11"*. With the main dependencies for this project being:
-
+This project utilizes poetry as a version control system for python instead of pip. Poetry additionally resolves dependencies not seen in regular version control systems (such as pip). The more detailed versions of all packages can be found in the requirements.txt. The python version utilized is: *python = "^3.11"*. With the main dependencies for this project being:
 ```toml
 [tool.poetry.dependencies]
 python = "^3.11"
 pandas = "^2.2.3"
 ipykernel = "^6.29.5"
 pm4py = "^2.7.11.13"
+scikit-learn = "^1.5.2"
+matplotlib = "^3.9.2"
+numpy = "^2.1.3"
 ```
 
 This section of the README file focusses on the utilization of Poetry in for new users:
